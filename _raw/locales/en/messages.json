@@ -4,7 +4,7 @@
       "title": "Transactions",
       "empty": {
         "title": "No transactions",
-        "desc": " No transactions found on <1>supported chains</1>"
+        "desc": "No transactions found on <1>supported chains</1>"
       },
       "explain": {
         "approve": "Approve {{amount}} {{symbol}} for {{project}}",
@@ -17,6 +17,11 @@
       },
       "modalViewMessage": {
         "title": "View Message"
+      },
+      "filterScam": {
+        "title": "Hide scam transactions",
+        "loading": "Loading may take a moment, and data delays are possible",
+        "btn": "Hide scam transactions"
       }
     },
     "chainList": {
@@ -36,7 +41,7 @@
       "safeAddressNotSupportChain": "Current safe address is not supported on {{0}} chain",
       "noGasRequired": "No gas required",
       "gasSelectorTitle": "Gas",
-      "failToFetchGasCost": "Fail to fetch gas cost",
+      "failToFetchGasCost": "Failed to fetch gas cost",
       "gasMoreButton": "More",
       "manuallySetGasLimitAlert": "You have manually set the Gas limit to",
       "gasNotRequireForSafeTransaction": "Gas fee is not required for Safe transactions",
@@ -59,7 +64,7 @@
         "noBalanceChange": "No balance change",
         "tokenOut": "Token out",
         "tokenIn": "Token in",
-        "errorTitle": "Fail to fetch balance change",
+        "errorTitle": "Failed to fetch balance change",
         "notSupport": "Transaction Simulation Not Supported",
         "nftOut": "NFT out"
       },
@@ -70,12 +75,12 @@
         "title": "Swap Token",
         "payToken": "Pay",
         "receiveToken": "Receive",
-        "failLoadReceiveToken": "Fail to load",
+        "failLoadReceiveToken": "Failed to load",
         "valueDiff": "Value diff",
         "simulationFailed": "Transaction simulation failed",
         "simulationNotSupport": "Transaction simulation not supported on this chain",
         "minReceive": "Minimum Receive",
-        "slippageFailToLoad": "Slippage tolerance fail to load",
+        "slippageFailToLoad": "Slippage tolerance Failed to load",
         "slippageTolerance": "Slippage tolerance",
         "receiver": "Receiver",
         "notPaymentAddress": "Not the payment address"
@@ -201,6 +206,33 @@
       "importedDelegatedAddress": "Imported delegated address",
       "noDelegatedAddress": "No imported delegated address",
       "coboSafeNotPermission": "This delegate address does not have permission to initiate this transaction",
+      "BroadcastMode": {
+        "instant": {
+          "title": "Instant",
+          "desc": "Transactions will be immediately broadcast to the network"
+        },
+        "lowGas": {
+          "title": "Gas-saving",
+          "desc": "Transactions will be broadcast when network gas is low"
+        },
+        "mev": {
+          "title": "MEV Guarded",
+          "desc": "Transactions will be broadcast to the designated MEV node"
+        },
+        "title": "Broadcast Mode",
+        "tips": {
+          "walletConnect": "Not supported by WalletConnect",
+          "notSupportChain": "Not supported on this chain",
+          "customRPC": "Not supported when using custom RPC",
+          "notSupported": "Not supported"
+        },
+        "lowGasDeadline": {
+          "label": "Timeout",
+          "1h": "1h",
+          "4h": "4h",
+          "24h": "24h"
+        }
+      },
       "SafeNonceSelector": {
         "explain": {
           "contractCall": "Contract Call",
@@ -215,7 +247,7 @@
           "new": "New Transaction"
         },
         "error": {
-          "pendingList": "Fail to load pending transactions, <1/><2>Retry</2>"
+          "pendingList": "Failed to load pending transactions, <1/><2>Retry</2>"
         }
       }
     },
@@ -229,7 +261,7 @@
       "connecting": "Connecting...",
       "ledgerNotConnected": "Ledger is not connected",
       "ledgerConnected": "Ledger is connected",
-      "signAndSubmitButton": "Sign and Submit",
+      "signAndSubmitButton": "Sign and Create",
       "walletConnect": {
         "connectedButCantSign": "Connected but unable to sign.",
         "switchToCorrectAddress": "Please switch to the correct address in mobile wallet",
@@ -263,9 +295,9 @@
       "qrcode": {
         "signWith": "Sign with {{brand}}",
         "failedToGetExplain": "Failed to get explain",
-        "txFailed": "Fail to submit",
+        "txFailed": "Failed to create",
         "sigReceived": "Signature received",
-        "sigCompleted": "Transaction submitted",
+        "sigCompleted": "Transaction created",
         "getSig": "Get signature",
         "qrcodeDesc": "Scan with your {{brand}} to sign<br></br>After signing, click the button below to receive the signature",
         "misMatchSignId": "Incongruent transaction data. Please check the transaction details.",
@@ -282,8 +314,8 @@
         "updateFirmwareAlert": "Please update the firmware and Ethereum App on your Ledger",
         "txRejectedByLedger": "Transaction is rejected on your Ledger",
         "blindSigTutorial": "Blind Signature Tutorial from Ledger",
-        "submitting": "Signed. Submitting transaction",
-        "resubmited": "Resubmited"
+        "submitting": "Signed. Creating transaction",
+        "resubmitted": "Resubmitted"
       },
       "common": {
         "notSupport": "{{0}} is not supported"
@@ -291,7 +323,14 @@
       "resend": "Retry",
       "submitTx": "Submit Transaction",
       "testnet": "Testnet",
-      "mainnet": "Mainnet"
+      "mainnet": "Mainnet",
+      "cancelTransaction": "Cancel Transaction",
+      "detectedMultipleRequestsFromThisDapp": "Detected multiple requests from this Dapp",
+      "cancelCurrentTransaction": "Cancel current transaction",
+      "cancelAll": "Cancel all {{count}} requests from Dapp",
+      "blockDappFromSendingRequests": "Block Dapp from sending requests for 1 min",
+      "cancelConnection": "Cancel connection",
+      "cancelCurrentConnection": "Cancel current connection"
     },
     "signTypedData": {
       "signTypeDataOnChain": "Sign {{chain}} Typed Data",
@@ -351,13 +390,20 @@
         },
         "tips": {
           "pendingDetail": "Only one transaction will be completed, and it is almost always the one with the highest gas price",
-          "canNotCancel": "Cannot speed up or cancel: Not the first pending txn"
+          "canNotCancel": "Cannot speed up or cancel: Not the first pending txn",
+          "pendingBroadcast": "Gas-saving mode: waiting for lower network fees. Max {{deadline}}h wait.",
+          "pendingBroadcastBtn": "Broadcast now",
+          "pendingBroadcastRetry": "Broadcast failed. Last attempt: {{pushAt}}",
+          "pendingBroadcastRetryBtn": "Re-broadcast"
         },
         "status": {
           "canceled": "Canceled",
           "failed": "Failed",
           "submitFailed": "Failed to submit",
-          "pending": "Pending"
+          "pending": "Pending",
+          "withdrawed": "Quick cancel",
+          "pendingBroadcasted": "Pending: broadcasted",
+          "pendingBroadcast": "Pending: broadcast"
         },
         "txType": {
           "initial": "Initial tx",
@@ -373,6 +419,36 @@
           "cancelSingleNFTApproval": "Cancel Single NFT Approval for {{protocol}}",
           "singleNFTApproval": "Single NFT Approval for {{protocol}}",
           "nftCollectionApproval": "NFT Collection Approval for {{protocol}}"
+        },
+        "CancelTxPopup": {
+          "title": "Cancel transaction",
+          "options": {
+            "quickCancel": {
+              "title": "Quick Cancel",
+              "desc": "Cancel before broadcasting, no gas fee",
+              "tips": "Only supported for transactions that haven't broadcast"
+            },
+            "onChainCancel": {
+              "title": "On-chain Cancel",
+              "desc": "New transaction to cancel, requires gas"
+            }
+          }
+        },
+        "MempoolList": {
+          "empty": "Not found in any node",
+          "reBroadcastBtn": "Re-broadcast",
+          "title": "Found in the below memopools"
+        },
+        "message": {
+          "reBroadcastSuccess": "Re-broadcasted",
+          "broadcastSuccess": "Broadcasted",
+          "cancelSuccess": "Canceled"
+        },
+        "gas": {
+          "noCost": "No Gas cost"
+        },
+        "SkipNonceAlert": {
+          "alert": "Nonce #{{nonce}} skipped on {{chainName}} chain. This may cause pending transactions ahead. <5></5> <6>Submit a tx</6> <7></7> on chain to resolve"
         }
       },
       "signedText": {
@@ -470,7 +546,7 @@
       "sectionMsgDataForContract": {
         "placeholder": "Optional",
         "title": "Contract call",
-        "parseError": "Fail to decode contract call",
+        "parseError": "Failed to decode contract call",
         "simulation": "Contract call simulation:",
         "notHexData": "Only supported hex data"
       }
@@ -634,7 +710,7 @@
       "approve-tips": "1.Approve → 2.Swap",
       "best": "Best",
       "unable-to-fetch-the-price": "Unable to fetch the price",
-      "fail-to-simulate-transaction": "Fail to simulate transaction",
+      "fail-to-simulate-transaction": "Failed to simulate transaction",
       "security-verification-failed": "Security verification failed",
       "need-to-approve-token-before-swap": "Need to approve token before swap",
       "this-exchange-is-not-enabled-to-trade-by-you": "This exchange is not enabled to trade by you.",
@@ -1033,7 +1109,7 @@
         "clearAll": "Clear All"
       },
       "metamask": {
-        "step1": " Export seed phrase or private key from MetaMask <br /> <1>Click to view tutorial <1/></1>",
+        "step1": "Export seed phrase or private key from MetaMask <br /> <1>Click to view tutorial <1/></1>",
         "step2": "Import the seed phrase or private key in Rabby",
         "step3": "Import is completed and all your assets will <br /> appear automatically",
         "how": "How to import my MetaMask Account?",
@@ -1088,7 +1164,7 @@
           "accountError": "Address not match.",
           "accountErrorDesc": "Please switch address in your mobile wallet",
           "connected": "Connected",
-          "duplicate": "The address you're are trying to import is duplicate",
+          "duplicate": "The address you're are trying to import already exists",
           "default": "Scan with your {{brand}}"
         },
         "title": "Connect with {{brandName}}",
@@ -1367,7 +1443,7 @@
     },
     "preferMetamaskDapps": {
       "title": "MetaMask Preferred Dapps",
-      "desc": "The following dapps will remain connected through MetaMask, regardless           of the wallet you've flipped to",
+      "desc": "The following dapps will remain connected through MetaMask, regardless of the wallet you've flipped to",
       "howToAdd": "How to Add",
       "howToAddDesc": "Right click on the website and find this option",
       "empty": "No dapps"
@@ -1377,7 +1453,7 @@
       "closed": "Closed",
       "empty": "No custom RPC",
       "title": "Custom RPC",
-      "desc": "Enabling custom RPC will replace Rabby as the default node. To continue         using Rabby, please disable or remove the custom RPC node.",
+      "desc": "Enabling custom RPC will replace Rabby as the default node. To continue using Rabby, please disable or remove the custom RPC node.",
       "add": "Add RPC",
       "EditRPCModal": {
         "invalidRPCUrl": "Invalid RPC URL",
@@ -1423,7 +1499,7 @@
           "reject": "Reject Transaction"
         },
         "title": "Select how to replace this transaction",
-        "desc": " A signed transaction cannot be removed but it can be replaced with a           new transaction with the same nonce."
+        "desc": "A signed transaction cannot be removed but it can be replaced with a new transaction with the same nonce."
       }
     },
     "importSuccess": {
@@ -1433,18 +1509,18 @@
     },
     "backupSeedPhrase": {
       "title": "Backup Seed Phrase",
-      "alert": "This Seed Phrase is the credential to your assets. DO NOT lose it or         reveal it to others, otherwise you might lose your assets forever.         Please view it in a secure environment and keep it carefully.",
+      "alert": "This Seed Phrase is the credential to your assets. DO NOT lose it or reveal it to others, otherwise you might lose your assets forever. Please view it in a secure environment and keep it carefully.",
       "clickToShow": "Click to show Seed Phrase",
       "copySeedPhrase": "Copy seed phrase"
     },
     "backupPrivateKey": {
       "title": "Backup Private Key",
-      "alert": "This Private Key is the credential to your assets. DO NOT lose it or         reveal it to others, otherwise you might lose your assets forever.         Please view it in a secure environment and keep it carefully.",
+      "alert": "This Private Key is the credential to your assets. DO NOT lose it or reveal it to others, otherwise you might lose your assets forever. Please view it in a secure environment and keep it carefully.",
       "clickToShow": "Click to show private key",
       "clickToShowQr": "Click to show private key QR Code"
     },
     "ethSign": {
-      "alert": "Signing with 'eth_sign' can lead to asset loss. For your safety,             Rabby does not support this method."
+      "alert": "Signing with 'eth_sign' can lead to asset loss. For your safety, Rabby does not support this method."
     },
     "createPassword": {
       "title": "Set Password",
@@ -1660,13 +1736,15 @@
       "invalidMnemonic": "The seed phrase is invalid, please check!",
       "notFoundKeyringByAddress": "Can't find keyring by address",
       "txPushFailed": "Transaction push failed",
-      "unlock": "you need to unlock wallet first",
-      "duplicateAccount": "The account you're are trying to import is duplicate",
+      "unlock": "you need to unlock your wallet first",
+      "duplicateAccount": "The account you're are trying to import already exists",
       "canNotUnlock": "Cannot unlock without a previous vault"
     },
     "transactionWatcher": {
       "submitted": "Transaction submitted",
       "more": "click to view more information",
+      "txCompleteMoreContent": "{{chain}} #{{nonce}} completed. Click to view more.",
+      "txFailedMoreContent": "{{chain}} #{{nonce}} failed. Click to view more.",
       "completed": "Transaction completed",
       "failed": "Transaction failed"
     },

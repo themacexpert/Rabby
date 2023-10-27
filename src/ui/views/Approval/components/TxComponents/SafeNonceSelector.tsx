@@ -145,7 +145,6 @@ const Wrapper = styled.div`
     &-message {
       color: var(--r-neutral-body, #3e495e);
       text-align: center;
-      font-family: SF Pro;
       font-size: 12px;
       font-style: normal;
       font-weight: 400;
@@ -358,7 +357,7 @@ const OptionList = ({
         <img src={IconFind} alt="" />
         <div className="alert-error-message">
           <Trans i18nKey="page.signTx.SafeNonceSelector.error.pendingList">
-            Fail to load pending transactions,{' '}
+            Failed to load pending transactions,{' '}
             <span
               onClick={() => {
                 refreshAsync();
