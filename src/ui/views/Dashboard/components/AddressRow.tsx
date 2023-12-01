@@ -14,6 +14,7 @@ import { message } from 'antd';
 import {
   KEYRING_ICONS,
   KEYRING_WITH_INDEX,
+  KeyringWithIcon,
   WALLET_BRAND_CONTENT,
 } from '@/constant';
 import { AddressViewer } from '@/ui/component';

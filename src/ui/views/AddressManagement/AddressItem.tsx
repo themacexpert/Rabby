@@ -6,6 +6,7 @@ import {
   KEYRING_CLASS,
   KEYRING_ICONS,
   KEYRING_TYPE_TEXT,
+  KeyringWithIcon,
   WALLET_BRAND_CONTENT,
 } from 'consts';
 import React, {
@@ -19,7 +20,7 @@ import React, {
 } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { ReactComponent as IconArrowRight } from 'ui/assets/address/bold-right-arrow.svg';
-import { ReactComponent as IconDeleteAddress } from 'ui/assets/address/delete.svg';
+import { ReactComponent as RcIconDeleteAddress } from 'ui/assets/address/delete.svg';
 
 import { AddressViewer } from 'ui/component';
 import { isSameAddress, splitNumberByStep, useAlias } from 'ui/utils';
@@ -32,6 +33,8 @@ import { CopyChecked } from '@/ui/component/CopyChecked';
 import SkeletonInput from 'antd/lib/skeleton/Input';
 import { useWalletConnectIcon } from '@/ui/component/WalletConnect/useWalletConnectIcon';
 import { CommonSignal } from '@/ui/component/ConnectStatus/CommonSignal';
+import { pickKeyringThemeIcon } from '@/utils/account';
+import { useThemeMode } from '@/ui/hooks/usePreference';
 
 export interface AddressItemProps {
   balance: number;
@@ -151,23 +154,31 @@ const AddressItem = memo(
       type,
     });
 
+    const { isDarkTheme } = useThemeMode();
+
     const addressTypeIcon = useMemo(
       () =>
         isCurrentAccount
           ? brandIcon ||
+            pickKeyringThemeIcon(type as any, {
+              needLightVersion: true,
+            }) ||
             WALLET_BRAND_CONTENT?.[brandName]?.image ||
             KEYRINGS_LOGOS[type]
           : brandIcon ||
+            pickKeyringThemeIcon(brandName as any, {
+              needLightVersion: isDarkTheme,
+            }) ||
             WALLET_BRAND_CONTENT?.[brandName]?.image ||
             KEYRING_ICONS[type],
-      [type, brandName, brandIcon]
+      [type, brandName, brandIcon, isDarkTheme]
     );
 
     return (
       <div className={clsx(className, 'rabby-address-item-container relative')}>
         {canFastDeleteAccount && (
           <div className="absolute icon-delete-container w-[20px] left-[-20px] h-full top-0  justify-center items-center">
-            <IconDeleteAddress
+            <RcIconDeleteAddress
               className="cursor-pointer w-[16px] h-[16px] icon icon-delete"
               onClick={deleteAccount}
             />
@@ -192,7 +203,7 @@ const AddressItem = memo(
           >
             {/* {canFastDeleteAccount && (
               <div className="absolute hidden group-hover:flex w-[20px] left-[-20px] h-full top-0  justify-center items-center">
-                <IconDeleteAddress
+                <RcIconDeleteAddress
                   className="cursor-pointer w-[16px] h-[16px] icon icon-delete"
                   onClick={deleteAccount}
                 />
@@ -270,7 +281,9 @@ const AddressItem = memo(
                     showArrow={false}
                     className={clsx(
                       'subtitle',
-                      isCurrentAccount ? 'text-white' : 'text-gray-subTitle'
+                      isCurrentAccount
+                        ? 'text-r-neutral-title-2'
+                        : 'text-r-neutral-body'
                     )}
                   />
 
@@ -278,10 +291,13 @@ const AddressItem = memo(
                     addr={address}
                     className={clsx('w-[14px] h-[14px] ml-4 text-14 textgre')}
                     copyClassName={clsx(
-                      isCurrentAccount && 'text-white brightness-[100]'
+                      isCurrentAccount &&
+                        'text-r-neutral-title-2 brightness-[100]'
                     )}
                     checkedClassName={clsx(
-                      isCurrentAccount ? 'text-white' : 'text-[#00C087]'
+                      isCurrentAccount
+                        ? 'text-r-neutral-title-2'
+                        : 'text-[#00C087]'
                     )}
                   />
                   {!isCurrentAccount && (
@@ -298,7 +314,7 @@ const AddressItem = memo(
                           />
                         </>
                       ) : (
-                        <span className="ml-[12px] text-12 text-gray-subTitle">
+                        <span className="ml-[12px] text-12 text-r-neutral-body">
                           ${splitNumberByStep(balance?.toFixed(2))}
                         </span>
                       )}
