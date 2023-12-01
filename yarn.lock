@@ -4025,10 +4025,10 @@
     sinon-chrome "^3.0.1"
     webextension-polyfill "0.7.0"
 
-"@rabby-wallet/rabby-api@^0.6.27":
-  version "0.6.27"
-  resolved "https://registry.yarnpkg.com/@rabby-wallet/rabby-api/-/rabby-api-0.6.27.tgz#7951ff2d66a38bfaa5f97121602feea8116e3f2b"
-  integrity sha512-ccX7xLtV7vf0tm7B3qPQOF2nOZMS6LMzPEHHagY5fKLZUHXu5A5kj4UYbK1yfapX+sgGhyBNou2f+67G4Ldt8w==
+"@rabby-wallet/rabby-api@^0.6.28":
+  version "0.6.28"
+  resolved "https://registry.yarnpkg.com/@rabby-wallet/rabby-api/-/rabby-api-0.6.28.tgz#4d0558d07a775fc7bef8ee0fd1b310f1c7d68467"
+  integrity sha512-snGwuneyw8PQlYBdrmEuOW0nJFY31In6zYXE/+2tLfmFn0lJkOnLybaQmqMOgsHXF3QDn5afQ8nBzAdw0mBSog==
   dependencies:
     "@rabby-wallet/rabby-sign" "^0.3.3"
     axios "^0.27.2"
@@ -15522,6 +15522,11 @@ tiny-warning@^1.0.0, tiny-warning@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
   integrity sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==
+
+tinycolor2@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.6.0.tgz#f98007460169b0263b97072c5ae92484ce02d09e"
+  integrity sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==
 
 tmp@^0.0.33:
   version "0.0.33"
