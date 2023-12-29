@@ -14,6 +14,7 @@ import {
   WALLET_BRAND_TYPES,
 } from 'consts';
 import QRCodeCheckerDetail from 'ui/views/QRCodeCheckerDetail';
+import ModalQRCodeCheckerDetail from 'ui/views/ModalQRCodeCheckerDetail';
 import clsx from 'clsx';
 import Progress from '@/ui/component/Progress';
 import PillsSwitch from '@/ui/component/PillsSwitch';
@@ -231,7 +232,7 @@ export const KeystoneConnect = () => {
             )}
 
             {showErrorChecker && (
-              <QRCodeCheckerDetail
+              <ModalQRCodeCheckerDetail
                 visible={showErrorChecker}
                 onCancel={handleClickBack}
                 data={errorMessage}
